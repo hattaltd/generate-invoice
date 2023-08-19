@@ -1,5 +1,7 @@
+import InvoiceHeader from './InvoiceHeader';
+
 const Home = () => {
-  return <div className="container mx-auto flex min-h-screen w-screen">test</div>;
+  return <InvoiceHeader />;
 };
 
 export default Home;

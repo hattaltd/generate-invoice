@@ -23,6 +23,7 @@ export interface IInvoiceSchema {
   setId: (param: string) => void;
   setName: (param: string) => void;
   setAdderss: (param: string) => void;
+  setIssueDate: (startDate: Date, endDate: Date) => void;
 }
 
 export const useInvoiceStore = create<IInvoiceSchema>((set, get) => ({
@@ -63,6 +64,16 @@ export const useInvoiceStore = create<IInvoiceSchema>((set, get) => ({
       invoiceData: {
         ...currentData,
         address: param,
+      },
+    });
+  },
+  setIssueDate: (startDate: Date, endDate: Date) => {
+    const currentData = get().invoiceData;
+    set({
+      invoiceData: {
+        ...currentData,
+        issueDate: startDate,
+        dueDate: endDate,
       },
     });
   },

@@ -1,9 +1,19 @@
+import { useState } from 'react';
+import Datepicker from 'react-tailwindcss-datepicker';
+
 import dayjs from 'dayjs';
 
 import { useInvoiceStore } from 'store/invoice';
 
 const InvoiceHeader = () => {
-  const { invoiceData, setId, setName, setAdderss } = useInvoiceStore();
+  const { invoiceData, setId, setName, setAdderss, setDate } = useInvoiceStore();
+
+  const dateHandler = (dateRange: { startDate: string; endDate: string }) => {
+    const startDate = dayjs(dateRange.startDate).toDate();
+    const endDate = dayjs(dateRange.endDate).toDate();
+    setDate(startDate, endDate);
+  };
+
   return (
     <section className="h-screen border-2 border-black py-10">
       <div className="min-h-6 container mx-auto border grid grid-cols-2">
@@ -45,6 +55,13 @@ const InvoiceHeader = () => {
             placeholder={'pls key in ID'}
           ></input>
           <h1>Issue Date: {dayjs(invoiceData.issueDate).format('DD/MM/YYYY')}</h1>
+          <Datepicker
+            value={{
+              startDate: invoiceData.issueDate,
+              endDate: invoiceData.dueDate,
+            }}
+            onChange={dateHandler}
+          />
           <h1>Due Date: {dayjs(invoiceData.dueDate).format('DD/MM/YYYY')}</h1>
           <h1>Price: {invoiceData.totalPrice}</h1>
         </div>
